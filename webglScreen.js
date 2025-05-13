@@ -85,8 +85,8 @@ function RotScreen()
             {
                 window.gameframe.style.transformOrigin="top left";
                 window.gameframe.style.transform="rotate(90deg) translateY(-" + windowWidth + "px)";
-                window.gameframe.style.height = (windowWidth - 50) + "px";
-                window.gameframe.style.width = (windowHeight - 50) + "px";
+                window.gameframe.style.height = (windowWidth ) + "px";
+                window.gameframe.style.width = (windowHeight ) + "px";
                 
                 // Add additional adjustment for iOS Chrome bottom UI
                 // if(isIOS && /CriOS/i.test(navigator.userAgent)) {
@@ -99,15 +99,15 @@ function RotScreen()
                 window.gameframe.style.transform="";
                 window.gameframe.style.transformOrigin="";
                 window.gameframe.style.height = '100%';
-                window.gameframe.style.width =  (windowHeight - 100) + "px";
+                window.gameframe.style.width =  (windowWidth - 100) + "px";
             }
         } else {
             if(window.WebglOrientation==WebglScreenOrientation.Portrait)
             {
                 window.gameframe.style.transformOrigin="top right";
                 window.gameframe.style.transform="rotate(-90deg) translateY(-" + windowHeight + "px)";
-                window.gameframe.style.height = (windowWidth - 50) + "px";
-                window.gameframe.style.width = (windowHeight - 50) + "px";
+                window.gameframe.style.height = (windowWidth ) + "px";
+                window.gameframe.style.width = (windowHeight 0) + "px";
                 
                 // Add additional adjustment for iOS Chrome bottom UI
                 // if(isIOS && /CriOS/i.test(navigator.userAgent)) {
