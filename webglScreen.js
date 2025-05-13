@@ -85,8 +85,8 @@ function RotScreen()
             {
                 window.gameframe.style.transformOrigin="top left";
                 window.gameframe.style.transform="rotate(90deg) translateY(-" + windowWidth + "px)";
-                window.gameframe.style.height = (windowWidth) + "px";
-                window.gameframe.style.width = (windowHeight) + "px";
+                window.gameframe.style.height = (windowWidth - 50) + "px";
+                window.gameframe.style.width = (windowHeight - 50) + "px";
                 
                 // Add additional adjustment for iOS Chrome bottom UI
                 // if(isIOS && /CriOS/i.test(navigator.userAgent)) {
@@ -98,7 +98,7 @@ function RotScreen()
             {
                 window.gameframe.style.transform="";
                 window.gameframe.style.transformOrigin="";
-                window.gameframe.style.height = '100%';
+                window.gameframe.style.height = '50%';
                 window.gameframe.style.width = '100%';
             }
         } else {
