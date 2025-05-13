@@ -119,8 +119,8 @@ function RotScreen()
             {
                 window.gameframe.style.transform="";
                 window.gameframe.style.transformOrigin="";
-                window.gameframe.style.height = (windowHeight - 50) + "px";
-                window.gameframe.style.width = '30%';
+                window.gameframe.style.height = (windowHeight) + "px";
+                window.gameframe.style.width = '100%';
             }
         }
     } else {
