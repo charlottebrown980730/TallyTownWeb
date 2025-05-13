@@ -61,6 +61,11 @@ function GetOrientation()
 function RotScreen()
 {
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+    
+    // Get actual usable viewport dimensions
+    const windowWidth = window.innerWidth;
+    const windowHeight = window.innerHeight;
     
     if(window.WebglOrientation==WebglScreenOrientation.AutoRotation)
     {
@@ -75,16 +80,19 @@ function RotScreen()
     
     // For mobile devices, handle orientation differently
     if(isMobile) {
-        const windowWidth = window.innerWidth;
-        const windowHeight = window.innerHeight;
-        
         if(orientation == 180 || orientation == 0 || orientation == -180 || orientation == 360){
             if(window.WebglOrientation==WebglScreenOrientation.Landscape)
             {
                 window.gameframe.style.transformOrigin="top left";
-                window.gameframe.style.transform="rotate(90deg) translateY(-100vw)";
-                window.gameframe.style.height = '50vw';
-                window.gameframe.style.width = '50vh';
+                window.gameframe.style.transform="rotate(90deg) translateY(-" + windowWidth + "px)";
+                window.gameframe.style.height = windowWidth + "px";
+                window.gameframe.style.width = windowHeight + "px";
+                
+                // Add additional adjustment for iOS Chrome bottom UI
+                if(isIOS && /CriOS/i.test(navigator.userAgent)) {
+                    // Add a small adjustment for the bottom UI bar (approximately 44px)
+                    window.gameframe.style.width = (windowHeight - 44) + "px";
+                }
             }
             else
             {
@@ -97,9 +105,15 @@ function RotScreen()
             if(window.WebglOrientation==WebglScreenOrientation.Portrait)
             {
                 window.gameframe.style.transformOrigin="top right";
-                window.gameframe.style.transform="rotate(-90deg) translateY(-100vh)";
-                window.gameframe.style.height = '100vw';
-                window.gameframe.style.width = '100vh';
+                window.gameframe.style.transform="rotate(-90deg) translateY(-" + windowHeight + "px)";
+                window.gameframe.style.height = windowWidth + "px";
+                window.gameframe.style.width = windowHeight + "px";
+                
+                // Add additional adjustment for iOS Chrome bottom UI
+                if(isIOS && /CriOS/i.test(navigator.userAgent)) {
+                    // Add a small adjustment for the bottom UI bar (approximately 44px)
+                    window.gameframe.style.height = (windowWidth - 44) + "px";
+                }
             }
             else
             {
@@ -110,36 +124,36 @@ function RotScreen()
             }
         }
     } else {
-        // For desktop, use the original logic
+        // For desktop, use the original logic with actual viewport values instead of vh/vw
         if(orientation == 180 || orientation == 0 || orientation == -180 || orientation == 360){
             if(window.WebglOrientation==WebglScreenOrientation.Landscape)
             {
                 window.gameframe.style.transformOrigin="top left";
-                window.gameframe.style.transform="rotate(90deg) translateY(-100vw)";
-                window.gameframe.style.height = '100vw';
-                window.gameframe.style.width = '100vh';
+                window.gameframe.style.transform="rotate(90deg) translateY(-" + windowWidth + "px)";
+                window.gameframe.style.height = windowWidth + "px";
+                window.gameframe.style.width = windowHeight + "px";
             }
             else
             {
                 window.gameframe.style.transform="";
                 window.gameframe.style.transformOrigin="";
-                window.gameframe.style.height = '100vh';
-                window.gameframe.style.width = '100vw';
+                window.gameframe.style.height = windowHeight + "px";
+                window.gameframe.style.width = windowWidth + "px";
             }
         } else {
             if(window.WebglOrientation==WebglScreenOrientation.Portrait)
             {
                 window.gameframe.style.transformOrigin="top right";
-                window.gameframe.style.transform="rotate(-90deg) translateY(-100vh)";
-                window.gameframe.style.height = '100vw';
-                window.gameframe.style.width = '100vh';
+                window.gameframe.style.transform="rotate(-90deg) translateY(-" + windowHeight + "px)";
+                window.gameframe.style.height = windowWidth + "px";
+                window.gameframe.style.width = windowHeight + "px";
             }
             else
             {
                 window.gameframe.style.transform="";
                 window.gameframe.style.transformOrigin="";
-                window.gameframe.style.height = '100vh';
-                window.gameframe.style.width = '100vw';
+                window.gameframe.style.height = windowHeight + "px";
+                window.gameframe.style.width = windowWidth + "px";
             }
         }
     }
