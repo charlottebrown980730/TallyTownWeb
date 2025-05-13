@@ -61,7 +61,7 @@ function GetOrientation()
 function RotScreen()
 {
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-    const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+    const isIOS = false; // /iPhone|iPad|iPod/i.test(navigator.userAgent);
     
     // Get actual usable viewport dimensions
     const windowWidth = window.innerWidth;
@@ -91,7 +91,7 @@ function RotScreen()
                 // Add additional adjustment for iOS Chrome bottom UI
                 if(isIOS && /CriOS/i.test(navigator.userAgent)) {
                     // Add a small adjustment for the bottom UI bar (approximately 44px)
-                    window.gameframe.style.width = (windowHeight) + "px";
+                    window.gameframe.style.width = (windowHeight - 44) + "px";
                 }
             }
             else
@@ -112,7 +112,7 @@ function RotScreen()
                 // Add additional adjustment for iOS Chrome bottom UI
                 if(isIOS && /CriOS/i.test(navigator.userAgent)) {
                     // Add a small adjustment for the bottom UI bar (approximately 44px)
-                    window.gameframe.style.height = (windowWidth) + "px";
+                    window.gameframe.style.height = (windowWidth - 44) + "px";
                 }
             }
             else
