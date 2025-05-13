@@ -26,43 +26,13 @@
 			//开始时调用
 			window.gameframe = document.getElementById("Frame");
 			window.WebglOrientation=WebglScreenOrientation.AutoRotation
-			
-			// Fix for iOS Chrome viewport issues
-			function fixIOSChromeHeight() {
-				const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
-				const isChrome = /CriOS/i.test(navigator.userAgent);
-				
-				if (isIOS && isChrome) {
-					document.documentElement.style.height = window.innerHeight + 'px';
-					document.body.style.height = window.innerHeight + 'px';
-					document.getElementById("game-container").style.height = window.innerHeight + 'px';
-				}
-			}
-			
-			// Call the fix initially
-			fixIOSChromeHeight();
-			
 			RotScreen()
 			window.addEventListener("resize", function () {
-				fixIOSChromeHeight();
 				RotScreen();
 			})
 			window.addEventListener("orientationchange", function () {
-				fixIOSChromeHeight();
-				RotScreen();
+					RotScreen();
 			})
-			
-			// Force a height recalculation on iOS Chrome
-			if(/iPhone|iPad|iPod/i.test(navigator.userAgent) && /CriOS/i.test(navigator.userAgent)) {
-				// Add additional listeners for iOS Chrome
-				window.addEventListener("scroll", fixIOSChromeHeight);
-				window.addEventListener("touchmove", fixIOSChromeHeight);
-				window.addEventListener("touchend", fixIOSChromeHeight);
-				
-				// Force a height recalculation after a short delay
-				setTimeout(fixIOSChromeHeight, 100);
-				setTimeout(fixIOSChromeHeight, 500);
-			}
 		</script>
 		<script>
 			const Http = new XMLHttpRequest();
@@ -108,12 +78,6 @@
 			#Frame {
 				padding: var(--sat) var(--sar) var(--sab) var(--sal);
 				box-sizing: border-box;
-			}
-			/* iOS Chrome specific fixes */
-			@supports (-webkit-touch-callout: none) {
-				#game-container {
-					height: -webkit-fill-available !important;
-				}
 			}
 		</style>
 	</body>

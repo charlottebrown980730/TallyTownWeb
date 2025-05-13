@@ -62,7 +62,6 @@ function RotScreen()
 {
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
     const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
-    const isChrome = /CriOS/i.test(navigator.userAgent);
     
     // Get actual usable viewport dimensions
     const windowWidth = window.innerWidth;
@@ -76,13 +75,6 @@ function RotScreen()
         window.gameframe.style.transformOrigin="";
         window.gameframe.style.height = '100%';
         window.gameframe.style.width = '100%';
-        
-        // Fix for iOS Chrome bottom UI gap
-        if(isIOS && isChrome) {
-            document.documentElement.style.height = window.innerHeight + 'px';
-            document.body.style.height = window.innerHeight + 'px';
-            gameContainer.style.height = window.innerHeight + 'px';
-        }
         return;
     }
     
@@ -90,13 +82,6 @@ function RotScreen()
     
     // For mobile devices, handle orientation differently
     if(isMobile) {
-        // Fix for iOS Chrome bottom UI gap
-        if(isIOS && isChrome) {
-            document.documentElement.style.height = window.innerHeight + 'px';
-            document.body.style.height = window.innerHeight + 'px';
-            gameContainer.style.height = window.innerHeight + 'px';
-        }
-        
         if(orientation == 180 || orientation == 0 || orientation == -180 || orientation == 360){
             if(window.WebglOrientation==WebglScreenOrientation.Landscape)
             {
@@ -104,6 +89,12 @@ function RotScreen()
                 window.gameframe.style.transform="rotate(90deg) translateY(-" + windowWidth + "px)";
                 window.gameframe.style.height = windowWidth + "px";
                 window.gameframe.style.width = gameContainerHeight + "px";
+                
+                // Add additional adjustment for iOS Chrome bottom UI
+                if(isIOS && /CriOS/i.test(navigator.userAgent)) {
+                    // Add a small adjustment for the bottom UI bar (approximately 44px)
+                    window.gameframe.style.width = (gameContainerHeight - 44) + "px";
+                }
             }
             else
             {
@@ -119,6 +110,12 @@ function RotScreen()
                 window.gameframe.style.transform="rotate(-90deg) translateY(-" + gameContainerHeight + "px)";
                 window.gameframe.style.height = windowWidth + "px";
                 window.gameframe.style.width = gameContainerHeight + "px";
+                
+                // Add additional adjustment for iOS Chrome bottom UI
+                if(isIOS && /CriOS/i.test(navigator.userAgent)) {
+                    // Add a small adjustment for the bottom UI bar (approximately 44px)
+                    window.gameframe.style.height = (windowWidth - 44) + "px";
+                }
             }
             else
             {
