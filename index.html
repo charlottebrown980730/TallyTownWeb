@@ -9,7 +9,6 @@
 
   gtag('config', 'G-LM8QSXXZT7');
 </script>
-
 		<meta charset="utf-8">
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<title>TallyTown</title>
@@ -20,8 +19,10 @@
 		<script src="webglScreen.js"></script>
 	</head>
 	<body style="margin: 0; padding: 0; overflow:hidden; width: 100%; height: 100%; position: fixed;">
-		<iframe id="Frame" src="game.html" style="border-width:0; position:absolute; top: 0; left: 0; right: 0; bottom: 0; width: 100%; height: 100%;"></iframe>
-		<div id="version-indicator">version: 0.22</div>
+		<div id="game-container" style="position: relative; width: 100%; height: calc(100%);">
+			<iframe id="Frame" src="game.html" style="border-width:0; position:absolute; top: 0; left: 0; right: 0; bottom: 0; width: 100%; height: 100%;"></iframe>
+		</div>
+		<div id="version-indicator">version: 0.23</div>
 		<script>
 			//开始时调用
 			window.gameframe = document.getElementById("Frame");
@@ -80,17 +81,16 @@
 				box-sizing: border-box;
 			}
 			#version-indicator {
-				position: fixed;
-				bottom: calc(10px + var(--sab));
-				right: calc(10px + var(--sar));
-				background-color: rgba(0, 0, 0, 0.5);
+				height: 30px;
+				line-height: 30px;
+				text-align: center;
+				background-color: #000;
 				color: white;
-				padding: 5px 8px;
-				border-radius: 4px;
+				padding: 0 8px;
 				font-family: Arial, sans-serif;
 				font-size: 12px;
-				z-index: 1000;
-				pointer-events: none;
+				width: 100%;
+				box-sizing: border-box;
 			}
 		</style>
 	</body>
