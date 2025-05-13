@@ -119,7 +119,7 @@ function RotScreen()
             {
                 window.gameframe.style.transform="";
                 window.gameframe.style.transformOrigin="";
-                window.gameframe.style.height = '100%';
+                window.gameframe.style.height = (windowHeight - 50) + "px";
                 window.gameframe.style.width = '30%';
             }
         }
