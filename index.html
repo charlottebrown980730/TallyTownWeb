@@ -1,103 +1,64 @@
-<!DOCTYPE html>
-<html lang="en-us">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Unity WebGL Player | TallyTown</title>
-    <link rel="shortcut icon" href="TemplateData/favicon.ico">
-    <link rel="stylesheet" href="TemplateData/style.css">
-    <link rel="manifest" href="manifest.webmanifest">
-  </head>
-  <body>
-    <div id="unity-container">
-      <canvas id="unity-canvas" width=960 height=600 tabindex="-1"></canvas>
-      <div id="unity-loading-bar">
-        <div id="unity-logo"></div>
-        <div id="unity-progress-bar-empty">
-          <div id="unity-progress-bar-full"></div>
-        </div>
-      </div>
-      <div id="unity-warning"> </div>
-    </div>
-    <script>
-      window.addEventListener("load", function () {
-        if ("serviceWorker" in navigator) {
-          navigator.serviceWorker.register("ServiceWorker.js");
-        }
-      });
+<html>
+	<head>
+		<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LM8QSXXZT7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-      var container = document.querySelector("#unity-container");
-      var canvas = document.querySelector("#unity-canvas");
-      var loadingBar = document.querySelector("#unity-loading-bar");
-      var progressBarFull = document.querySelector("#unity-progress-bar-full");
-      var warningBanner = document.querySelector("#unity-warning");
+  gtag('config', 'G-LM8QSXXZT7');
+</script>
 
-      // Shows a temporary message banner/ribbon for a few seconds, or
-      // a permanent error message on top of the canvas if type=='error'.
-      // If type=='warning', a yellow highlight color is used.
-      // Modify or remove this function to customize the visually presented
-      // way that non-critical warnings and error messages are presented to the
-      // user.
-      function unityShowBanner(msg, type) {
-        function updateBannerVisibility() {
-          warningBanner.style.display = warningBanner.children.length ? 'block' : 'none';
-        }
-        var div = document.createElement('div');
-        div.innerHTML = msg;
-        warningBanner.appendChild(div);
-        if (type == 'error') div.style = 'background: red; padding: 10px;';
-        else {
-          if (type == 'warning') div.style = 'background: yellow; padding: 10px;';
-          setTimeout(function() {
-            warningBanner.removeChild(div);
-            updateBannerVisibility();
-          }, 5000);
-        }
-        updateBannerVisibility();
-      }
-
-      var buildUrl = "Build";
-      var loaderUrl = buildUrl + "/TallyTownWeb.loader.js";
-      var config = {
-        dataUrl: buildUrl + "/TallyTownWeb.data",
-        frameworkUrl: buildUrl + "/TallyTownWeb.framework.js",
-        codeUrl: buildUrl + "/TallyTownWeb.wasm",
-        streamingAssetsUrl: "StreamingAssets",
-        companyName: "Nuat",
-        productName: "TallyTown",
-        productVersion: "0.5",
-        showBanner: unityShowBanner,
-      };
-
-      // By default Unity keeps WebGL canvas render target size matched with
-      // the DOM size of the canvas element (scaled by window.devicePixelRatio)
-      // Set this to false if you want to decouple this synchronization from
-      // happening inside the engine, and you would instead like to size up
-      // the canvas DOM size and WebGL render target sizes yourself.
-      // config.matchWebGLToCanvasSize = false;
-
-      if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
-        // Mobile device style: fill the whole browser client area with the game canvas:
-        var meta = document.createElement('meta');
-        meta.name = 'viewport';
-        meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
-        document.getElementsByTagName('head')[0].appendChild(meta);
-      }
-
-      loadingBar.style.display = "block";
-
-      var script = document.createElement("script");
-      script.src = loaderUrl;
-      script.onload = () => {
-        createUnityInstance(canvas, config, (progress) => {
-          progressBarFull.style.width = 100 * progress + "%";
-        }).then((unityInstance) => {
-          loadingBar.style.display = "none";
-        }).catch((message) => {
-          alert(message);
-        });
-      };
-      document.body.appendChild(script);
-    </script>
-  </body>
+		<meta charset="utf-8">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>TallyTown</title>
+		<link rel="shortcut icon" href="TemplateData/favicon.ico">	
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<script src="webglScreen.js"></script>
+	</head>
+	<body style="margin: 0; overflow:hidden">
+		<iframe id="Frame"  src="game.html" style="border-width:1px;position:absolute;"></iframe>
+		<script>
+			//开始时调用
+			window.gameframe = document.getElementById("Frame");
+			window.WebglOrientation=WebglScreenOrientation.AutoRotation
+			RotScreen()
+			window.addEventListener("resize", function () {
+				RotScreen();
+			})
+			window.addEventListener("orientationchange", function () {
+					RotScreen();
+			})
+		</script>
+		<script>
+			const Http = new XMLHttpRequest();
+			const url="StreamingAssets/webglscreenSetting/ScreenConfig.json";
+			// 创建一个新的 XMLHttpRequest 对象  
+			var xhr = new XMLHttpRequest();  
+			
+			// 设置请求类型为 GET，并指定请求的 URL  
+			
+			// 设置请求完成后的回调函数  
+			xhr.onreadystatechange = function () {  
+				// 检查请求是否成功完成（状态码为 200）  
+				if (xhr.readyState === 4 && xhr.status === 200) {  
+					// 读取响应文本  
+					var json = xhr.responseText;  
+					// 解析 JSON 字符串为 JavaScript 对象  
+					var data = JSON.parse(json);  
+					// 将解析后的数据中的 ScreenOrientation 赋值给 window.WebglOrientation  
+					window.WebglOrientation = data.ScreenOrientation;  
+					// 调用 RotScreen 函数（假设该函数已定义）  
+					RotScreen();  
+				}  
+			};  
+			xhr.open("GET", url, true);  
+			xhr.send()
+		</script>
+		<style>
+			
+		</style>
+	</body>
+	
 </html>
