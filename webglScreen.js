@@ -83,8 +83,8 @@ function RotScreen()
             {
                 window.gameframe.style.transformOrigin="top left";
                 window.gameframe.style.transform="rotate(90deg) translateY(-100vw)";
-                window.gameframe.style.height = '100vw';
-                window.gameframe.style.width = '100vh';
+                window.gameframe.style.height = '50vw';
+                window.gameframe.style.width = '50vh';
             }
             else
             {
