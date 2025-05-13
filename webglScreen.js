@@ -112,7 +112,7 @@ function RotScreen()
                 // Add additional adjustment for iOS Chrome bottom UI
                 if(isIOS && /CriOS/i.test(navigator.userAgent)) {
                     // Add a small adjustment for the bottom UI bar (approximately 44px)
-                    window.gameframe.style.height = (windowWidth - 44) + "px";
+                    window.gameframe.style.height = (windowWidth) + "px";
                 }
             }
             else
