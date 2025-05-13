@@ -66,8 +66,6 @@ function RotScreen()
     // Get actual usable viewport dimensions
     const windowWidth = window.innerWidth;
     const windowHeight = window.innerHeight;
-    const gameContainer = document.getElementById("game-container");
-    const gameContainerHeight = gameContainer.clientHeight;
     
     if(window.WebglOrientation==WebglScreenOrientation.AutoRotation)
     {
@@ -88,12 +86,12 @@ function RotScreen()
                 window.gameframe.style.transformOrigin="top left";
                 window.gameframe.style.transform="rotate(90deg) translateY(-" + windowWidth + "px)";
                 window.gameframe.style.height = windowWidth + "px";
-                window.gameframe.style.width = gameContainerHeight + "px";
+                window.gameframe.style.width = windowHeight + "px";
                 
                 // Add additional adjustment for iOS Chrome bottom UI
                 if(isIOS && /CriOS/i.test(navigator.userAgent)) {
                     // Add a small adjustment for the bottom UI bar (approximately 44px)
-                    window.gameframe.style.width = (gameContainerHeight - 44) + "px";
+                    window.gameframe.style.width = (windowHeight - 44) + "px";
                 }
             }
             else
@@ -107,9 +105,9 @@ function RotScreen()
             if(window.WebglOrientation==WebglScreenOrientation.Portrait)
             {
                 window.gameframe.style.transformOrigin="top right";
-                window.gameframe.style.transform="rotate(-90deg) translateY(-" + gameContainerHeight + "px)";
+                window.gameframe.style.transform="rotate(-90deg) translateY(-" + windowHeight + "px)";
                 window.gameframe.style.height = windowWidth + "px";
-                window.gameframe.style.width = gameContainerHeight + "px";
+                window.gameframe.style.width = windowHeight + "px";
                 
                 // Add additional adjustment for iOS Chrome bottom UI
                 if(isIOS && /CriOS/i.test(navigator.userAgent)) {
@@ -133,29 +131,29 @@ function RotScreen()
                 window.gameframe.style.transformOrigin="top left";
                 window.gameframe.style.transform="rotate(90deg) translateY(-" + windowWidth + "px)";
                 window.gameframe.style.height = windowWidth + "px";
-                window.gameframe.style.width = gameContainerHeight + "px";
+                window.gameframe.style.width = windowHeight + "px";
             }
             else
             {
                 window.gameframe.style.transform="";
                 window.gameframe.style.transformOrigin="";
-                window.gameframe.style.height = '100%';
-                window.gameframe.style.width = '100%';
+                window.gameframe.style.height = windowHeight + "px";
+                window.gameframe.style.width = windowWidth + "px";
             }
         } else {
             if(window.WebglOrientation==WebglScreenOrientation.Portrait)
             {
                 window.gameframe.style.transformOrigin="top right";
-                window.gameframe.style.transform="rotate(-90deg) translateY(-" + gameContainerHeight + "px)";
+                window.gameframe.style.transform="rotate(-90deg) translateY(-" + windowHeight + "px)";
                 window.gameframe.style.height = windowWidth + "px";
-                window.gameframe.style.width = gameContainerHeight + "px";
+                window.gameframe.style.width = windowHeight + "px";
             }
             else
             {
                 window.gameframe.style.transform="";
                 window.gameframe.style.transformOrigin="";
-                window.gameframe.style.height = '100%';
-                window.gameframe.style.width = '100%';
+                window.gameframe.style.height = windowHeight + "px";
+                window.gameframe.style.width = windowWidth + "px";
             }
         }
     }
