@@ -55,7 +55,8 @@
 
     <script>
         function goFullScreen() {
-            const container = document.getElementById("container");
+            //const container = document.getElementById("container");
+            const container = document.querySelector("body");
 
             if (container.requestFullscreen) {
                 container.requestFullscreen();
