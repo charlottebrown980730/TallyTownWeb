@@ -107,7 +107,7 @@ function RotScreen()
                 window.gameframe.style.transformOrigin="top right";
                 window.gameframe.style.transform="rotate(-90deg) translateY(-" + windowHeight + "px)";
                 window.gameframe.style.height = (windowWidth ) + "px";
-                window.gameframe.style.width = (windowHeight 0) + "px";
+                window.gameframe.style.width = (windowHeight) + "px";
                 
                 // Add additional adjustment for iOS Chrome bottom UI
                 // if(isIOS && /CriOS/i.test(navigator.userAgent)) {
