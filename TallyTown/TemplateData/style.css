@@ -1,0 +1,11 @@
+body { padding: 0; margin: 0 }
+#container { position: absolute;overflow: hidden; }
+#container.desktop {  width: 100vw; height: 100vh }
+#container.mobile { width: 100vw; height: 100vh }
+#canvas { background: #231F20 }
+.mobile #canvas { width: 100%; height: 100% }
+#loading-bar { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); display: none }
+#logo { width: 154px; height: 130px; background: url('logo-dark.png') no-repeat center }
+#progress-bar-empty { width: 141px; height: 18px; margin-top: 10px; margin-left: 6.5px; background: url('progress-bar-empty-dark.png') no-repeat center }
+#progress-bar-full { width: 0%; height: 18px; margin-top: 10px; background: url('progress-bar-full-dark.png') no-repeat center }
+#warning { position: absolute; left: 50%; top: 5%; transform: translate(-50%); background: white; padding: 10px; display: none }
