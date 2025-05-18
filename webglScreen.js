@@ -60,101 +60,70 @@ function GetOrientation()
 }
 function RotScreen()
 {
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-    const isIOS = false; // /iPhone|iPad|iPod/i.test(navigator.userAgent);
-    
-    // Get actual usable viewport dimensions
-    const windowWidth = window.innerWidth;
-    const windowHeight = window.innerHeight;
-    
     if(window.WebglOrientation==WebglScreenOrientation.AutoRotation)
     {
+        //window.gameframe.style.height = 'calc(100vh - 3px)';
+        //window.gameframe.style.width = 'calc(100vw - 3px)';	
+
         window.gameframe.style.transform="";
-        window.gameframe.style.transformOrigin="";
-        window.gameframe.style.height = '100%';
-        window.gameframe.style.width = '100%';
+		window.gameframe.style.transformOrigin=""
+				window.gameframe.style.height = '100vh';
+            window.gameframe.style.width = '100vw';
         return;
     }
-    
     var orientation = window.orientation;
-    
-    // For mobile devices, handle orientation differently
-    if(isMobile) {
-        if(orientation == 180 || orientation == 0 || orientation == -180 || orientation == 360){
-            if(window.WebglOrientation==WebglScreenOrientation.Landscape)
-            {
-                window.gameframe.style.transformOrigin="top left";
-                window.gameframe.style.transform="rotate(90deg) translateY(-" + windowWidth + "px)";
-                window.gameframe.style.height = windowWidth + "px";
-                window.gameframe.style.width = windowHeight + "px";
-                
-                // Add additional adjustment for iOS Chrome bottom UI
-                if(isIOS && /CriOS/i.test(navigator.userAgent)) {
-                    // Add a small adjustment for the bottom UI bar (approximately 44px)
-                    window.gameframe.style.width = (windowHeight - 44) + "px";
-                }
-            }
-            else
-            {
-                window.gameframe.style.transform="";
-                window.gameframe.style.transformOrigin="";
-                window.gameframe.style.height = '100%';
-                window.gameframe.style.width = '100%';
-            }
-        } else {
+    //开始时调用
+    if(orientation == 180 || orientation == 0 || orientation == -180||orientation == 360){
+        if(window.WebglOrientation==WebglScreenOrientation.Landscape)
+        {
+            //注意竖屏时要把 iframe的宽设置为当前窗口的高度 高设置为当前窗口的宽度
+
+			window.gameframe.style.transformOrigin="top left"
+			window.gameframe.style.transform="rotate(90deg) translateY(-100vw)"
+			window.gameframe.style.height = '100vw';
+            window.gameframe.style.width = '100vh';
+            window.gameframe.style.height = window.innerWidth;
+            window.gameframe.style.width =  window.innerHeight;	
+
+            //通过css样式旋转90度
+          
+        }
+        else
+        {
+            //window.gameframe.style.height = 'calc(100vh - 3px)';
+            //window.gameframe.style.width = 'calc(100vw - 3px)';	
+			 //window.gameframe.style.height =  window.innerHeight;
+			//window.gameframe.style.width = window.innerWidth;	
+
+            window.gameframe.style.transform="";
+			window.gameframe.style.transformOrigin=""
+			window.gameframe.style.height = '100vh';
+             window.gameframe.style.width = '100vw';	;
+        }
+    }else{
             if(window.WebglOrientation==WebglScreenOrientation.Portrait)
             {
-                window.gameframe.style.transformOrigin="top right";
-                window.gameframe.style.transform="rotate(-90deg) translateY(-" + windowHeight + "px)";
-                window.gameframe.style.height = windowWidth + "px";
-                window.gameframe.style.width = windowHeight + "px";
-                
-                // Add additional adjustment for iOS Chrome bottom UI
-                if(isIOS && /CriOS/i.test(navigator.userAgent)) {
-                    // Add a small adjustment for the bottom UI bar (approximately 44px)
-                    window.gameframe.style.height = (windowWidth - 44) + "px";
-                }
+                //注意竖屏时要把 iframe的宽设置为当前窗口的高度 高设置为当前窗口的宽度
+
+			   //window.gameframe.style.height = 'calc(100vw - 3px)';
+                //window.gameframe.style.width = 'calc(100vh - 3px)';
+				window.gameframe.style.transformOrigin="top right"
+				window.gameframe.style.transform="rotate(-90deg) translateY(-100vh)"
+				 window.gameframe.style.height = '100vw';
+                window.gameframe.style.width = '100vh';
+                //window.gameframe.style.height = window.innerWidth;
+                //window.gameframe.style.width =window.innerHeight;	
+                //通过css样式旋转90度
+
             }
             else
             {
-                window.gameframe.style.transform="";
-                window.gameframe.style.transformOrigin="";
-                window.gameframe.style.height = '100%';
-                window.gameframe.style.width = '100%';
+                window.gameframe.style.height = '100vh';
+                window.gameframe.style.width = '100vw';
+				window.gameframe.style.height =  window.innerHeight;
+				window.gameframe.style.width = window.innerWidth;	
+				window.gameframe.style.transform="";
+				window.gameframe.style.transformOrigin=""
             }
-        }
-    } else {
-        // For desktop, use the original logic with actual viewport values instead of vh/vw
-        if(orientation == 180 || orientation == 0 || orientation == -180 || orientation == 360){
-            if(window.WebglOrientation==WebglScreenOrientation.Landscape)
-            {
-                window.gameframe.style.transformOrigin="top left";
-                window.gameframe.style.transform="rotate(90deg) translateY(-" + windowWidth + "px)";
-                window.gameframe.style.height = windowWidth + "px";
-                window.gameframe.style.width = windowHeight + "px";
-            }
-            else
-            {
-                window.gameframe.style.transform="";
-                window.gameframe.style.transformOrigin="";
-                window.gameframe.style.height = windowHeight + "px";
-                window.gameframe.style.width = windowWidth + "px";
-            }
-        } else {
-            if(window.WebglOrientation==WebglScreenOrientation.Portrait)
-            {
-                window.gameframe.style.transformOrigin="top right";
-                window.gameframe.style.transform="rotate(-90deg) translateY(-" + windowHeight + "px)";
-                window.gameframe.style.height = windowWidth + "px";
-                window.gameframe.style.width = windowHeight + "px";
-            }
-            else
-            {
-                window.gameframe.style.transform="";
-                window.gameframe.style.transformOrigin="";
-                window.gameframe.style.height = windowHeight + "px";
-                window.gameframe.style.width = windowWidth + "px";
-            }
-        }
     }
 }

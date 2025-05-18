@@ -5,41 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="mobile-web-app-capable" content="yes">
-    <style>
-      :root {
-        --sat: env(safe-area-inset-top);
-        --sar: env(safe-area-inset-right);
-        --sab: env(safe-area-inset-bottom);
-        --sal: env(safe-area-inset-left);
-      }
-      html, body {
-        width: 100%;
-        height: 100%;
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
-        position: fixed;
-        touch-action: none;
-      }
-      #container {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: var(--sat) var(--sar) var(--sab) var(--sal);
-        box-sizing: border-box;
-      }
-      #canvas {
-        width: 100%;
-        height: 100%;
-        display: block;
-      }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
   <body>
     <div id="container" class="desktop" >
@@ -90,6 +56,9 @@
         showBanner: unityShowBanner,
       };
       if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+        var meta = document.createElement('meta');
+        meta.name = 'viewport';
+        document.getElementsByTagName('head')[0].appendChild(meta);
         container.className = "mobile";
         canvas.className = "mobile";
       } else {
@@ -104,6 +73,11 @@
           progressBarFull.style.width = 100 * progress + "%";
         }).then((unityInstance) => {
           loadingBar.style.display = "none";
+
+          canvas.tabIndex = 1;
+          canvas.focus();
+          canvas.addEventListener("click", () => canvas.focus());
+
          
         }).catch((message) => {
           alert(message);
