@@ -6,6 +6,14 @@
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VD5F2585WB"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-VD5F2585WB');
+    </script>
   </head>
   <body>
     <div id="container" class="desktop" >
@@ -26,6 +34,7 @@
       var loadingBar = document.querySelector("#loading-bar");
       var progressBarFull = document.querySelector("#progress-bar-full"); 
       var warningBanner = document.querySelector("#warning");
+      var startTime = Date.now();
       function unityShowBanner(msg, type) {
         function updateBannerVisibility() {
           warningBanner.style.display = warningBanner.children.length ? 'block' : 'none';
@@ -73,6 +82,34 @@
           progressBarFull.style.width = 100 * progress + "%";
         }).then((unityInstance) => {
           loadingBar.style.display = "none";
+          var endTime = Date.now();
+          var loadingTime = (endTime - startTime) / 1000;
+
+          if (loadingTime < 3) {
+            gtag('event', 'unity_loading_time_less_3');
+          } else if (loadingTime >= 3 && loadingTime < 7) {
+            gtag('event', 'unity_loading_time_3_7');
+          } else if (loadingTime >= 7 && loadingTime < 12) {
+            gtag('event', 'unity_loading_time_7_12');
+          } else if (loadingTime >= 12 && loadingTime < 20) {
+            gtag('event', 'unity_loading_time_12_20');
+          } else if (loadingTime >= 20 && loadingTime < 30) {
+            gtag('event', 'unity_loading_time_20_30');
+          } else if (loadingTime >= 30 && loadingTime < 50) {
+            gtag('event', 'unity_loading_time_30_50');
+          } else if (loadingTime >= 50 && loadingTime < 100) {
+            gtag('event', 'unity_loading_time_50_100');
+          } else {
+            gtag('event', 'unity_loading_time_bigger_100');
+          }
+
+          // Send loading time to Google Analytics
+          gtag('event', 'unity_loading_time', {
+            'loading_time': loadingTime,
+            'event_category': 'Performance',
+            'event_label': 'Unity Load Time'
+          });
+          //alert("Unity loading completed, total time: " + loadingTime + " seconds");
 
           canvas.tabIndex = 1;
           canvas.focus();
